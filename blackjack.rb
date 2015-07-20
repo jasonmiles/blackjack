@@ -17,6 +17,9 @@ def populate_deck(deck, number_cards, face_cards, suits)
     end
     5.times do |x|
       hash = {:name => face_cards[x], :value => 10, :suit => suits[i]}
+      if hash[:name] == "Ace"
+        hash[:value] = 11
+      end
       deck.push(hash)
    end
   end
@@ -35,7 +38,7 @@ def hand_value(hand)
   end
   hand.each do |i|
     if i[:name] == "Ace" && total_value > 21
-      total_value -= 9
+      total_value -= 10
     end
   end
   total_value
