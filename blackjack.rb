@@ -12,7 +12,7 @@ player_name = ""
 def populate_deck(deck, number_cards, face_cards, suits)
   4.times do |i|
     8.times do |x|
-      hash = {:name => number_cards[x], :value => x + 1, :suit => suits[i]}
+      hash = {:name => number_cards[x], :value => x + 2, :suit => suits[i]}
       deck.push(hash)
     end
     5.times do |x|
@@ -32,6 +32,11 @@ def hand_value(hand)
   total_value = 0
   hand.each do |i|
     total_value += i[:value]
+  end
+  hand.each do |i|
+    if i[:name] == "Ace" && total_value > 21
+      total_value -= 9
+    end
   end
   total_value
 end
@@ -90,7 +95,7 @@ while true
     system ("clear")
     print_hands(dealer_hand, player_hand, player_name)
     if active_player == "player"     
-      while hand_value(player_hand) < 21
+      while hand_value(player_hand) < 22
         puts "Hit or stay?"
         answer = gets.chomp!
         if answer == "hit"
